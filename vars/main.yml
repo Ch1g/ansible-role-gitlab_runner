@@ -49,7 +49,7 @@ _gitlab_runner_version_separator:
   dnf: "-"
   yum: "-"
 
-gitlab_runner_version: "17.10.1"
+gitlab_runner_version: "17.10.1-1"
 
 gitlab_runner_version_separator: "{{ _gitlab_runner_version_separator[ansible_pkg_mgr] }}"
 
