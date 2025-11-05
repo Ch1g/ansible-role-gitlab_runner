@@ -26,7 +26,11 @@
 # TODO: Remove later
 - name: Hotfix
   ansible.builtin.command:
-    cmd: sudo sed -i 's#/usr/share/keyrings/runner_gitlab-runner-archive-keyring.gpg#/etc/apt/keyrings/runner_gitlab-runner-archive-keyring.gpg#g' \ /etc/apt/sources.list.d/runner_gitlab-runner.list
+    cmd: [ -f /etc/apt/keyrings/runner_gitlab-runner-archive-keyring.gpg ] && ln -s /etc/apt/keyrings/runner_gitlab-runner-archive-keyring.gpg /usr/share/keyrings/runner_gitlab-runner-archive-keyring.gpg
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
 
 - name: Install gitlab-runner
   ansible.builtin.package:
