@@ -23,10 +23,19 @@
     cmd: /tmp/gitlab-runner-script.sh
     creates: "{{ gitlab_runner_repository_file }}"
 
+# TODO: Remove later
+- name: Hotfix
+  ansible.builtin.command:
+    cmd: sudo sed -i 's#/usr/share/keyrings/runner_gitlab-runner-archive-keyring.gpg#/etc/apt/keyrings/runner_gitlab-runner-archive-keyring.gpg#g' \ /etc/apt/sources.list.d/runner_gitlab-runner.list
+
 - name: Install gitlab-runner
   ansible.builtin.package:
     name: "{{ gitlab_runner_package }}"
     state: present
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
 
 - name: Register runner
   when:
